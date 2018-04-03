@@ -16,6 +16,8 @@
 #![feature(toowned_clone_into)]
 #![feature(str_internals)]
 #![feature(rustc_attrs)]
+#![feature(nonzero)]
+#![feature(int_error_internals)]
 
 extern crate alloc;
 extern crate std_unicode;
@@ -70,6 +72,7 @@ pub mod memchr;
 pub mod fs;
 pub mod time;
 pub mod util;
+pub mod num;
 
 // Copied 1:1 from std (except for use prelude::*)
 pub mod ascii;

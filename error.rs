@@ -38,9 +38,7 @@
 //! [`Display`]: ../fmt/trait.Display.html
 //! [`cause`]: trait.Error.html#method.cause
 
-// #![stable(feature = "rust1", since = "1.0.0")]
-
-use prelude::*;
+#![stable(feature = "rust1", since = "1.0.0")]
 
 // A note about crates and the facade:
 //
@@ -53,16 +51,16 @@ use prelude::*;
 // coherence challenge (e.g., specialization, neg impls, etc) we can
 // reconsider what crate these items belong in.
 
+use prelude::*;
 use alloc::allocator;
 use any::TypeId;
 use borrow::Cow;
 use cell;
 use char;
-use convert;
 use core::array;
 use fmt::{self, Debug, Display};
 use mem::transmute;
-// use num;
+use num;
 use str;
 use string;
 
@@ -236,7 +234,7 @@ impl<'a> From<Cow<'a, str>> for Box<Error> {
     }
 }
 
-#[unstable(feature = "never_type", issue = "35121")]
+#[stable(feature = "never_type", since = "1.26.0")]
 impl Error for ! {
     fn description(&self) -> &str { *self }
 }
@@ -271,33 +269,33 @@ impl Error for str::Utf8Error {
     }
 }
 
-// #[stable(feature = "rust1", since = "1.0.0")]
-// impl Error for num::ParseIntError {
-//     fn description(&self) -> &str {
-//         self.__description()
-//     }
-// }
+#[stable(feature = "rust1", since = "1.0.0")]
+impl Error for num::ParseIntError {
+    fn description(&self) -> &str {
+        self.__description()
+    }
+}
 
-// #[unstable(feature = "try_from", issue = "33417")]
-// impl Error for num::TryFromIntError {
-//     fn description(&self) -> &str {
-//         self.__description()
-//     }
-// }
+#[stable(feature = "try_from", since = "1.26.0")]
+impl Error for num::TryFromIntError {
+    fn description(&self) -> &str {
+        self.__description()
+    }
+}
 
-#[unstable(feature = "try_from", issue = "33417")]
+#[stable(feature = "try_from", since = "1.26.0")]
 impl Error for array::TryFromSliceError {
     fn description(&self) -> &str {
         self.__description()
     }
 }
 
-// #[stable(feature = "rust1", since = "1.0.0")]
-// impl Error for num::ParseFloatError {
-//     fn description(&self) -> &str {
-//         self.__description()
-//     }
-// }
+#[stable(feature = "rust1", since = "1.0.0")]
+impl Error for num::ParseFloatError {
+    fn description(&self) -> &str {
+        self.__description()
+    }
+}
 
 #[stable(feature = "rust1", since = "1.0.0")]
 impl Error for string::FromUtf8Error {
@@ -359,7 +357,7 @@ impl Error for cell::BorrowMutError {
     }
 }
 
-#[unstable(feature = "try_from", issue = "33417")]
+#[stable(feature = "try_from", since = "1.26.0")]
 impl Error for char::CharTryFromError {
     fn description(&self) -> &str {
         "converted integer out of range for `char`"
@@ -370,14 +368,6 @@ impl Error for char::CharTryFromError {
 impl Error for char::ParseCharError {
     fn description(&self) -> &str {
         self.__description()
-    }
-}
-
-#[unstable(feature = "try_from", issue = "33417")]
-impl Error for convert::Infallible {
-    fn description(&self) -> &str {
-        match *self {
-        }
     }
 }
 
