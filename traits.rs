@@ -53,6 +53,24 @@ pub trait Std: Sized + Debug + Send + Sync + PartialEq + Eq + PartialOrd + Ord +
     type DirBuilder: DirBuilder<Self>;
     type DirEntry: DirEntry<Self>;
 
+    // env
+    type VarsOs: Iterator<Item = (ffi::OsString<Self>, ffi::OsString<Self>)>;
+    type ArgsOs: Iterator<Item = ffi::OsString<Self>>;
+    type SplitPaths<'a>;
+    type JoinPathsError;
+    const ARCH: &'static str;
+    const FAMILY: &'static str;
+    const OS: &'static str;
+    const DLL_PREFIX: &'static str;
+    const DLL_SUFFIX: &'static str;
+    const DLL_EXTENSION: &'static str;
+    const EXE_SUFFIX: &'static str;
+    const EXE_EXTENSION: &'static str;
+    fn vars_os() -> Self::VarsOs;
+    fn args_os() -> Self::ArgsOs;
+    fn current_dir() -> io::Result<path::PathBuf<Self>, Self>;
+    fn set_current_dir(path: &path::Path<Self>) -> io::Result<path::PathBuf<Self>, Self>;
+
     type Stderr: Stdio<Self> + Write<Self>;
 
     const UNIX_EPOCH: Self::SystemTime;

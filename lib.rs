@@ -18,6 +18,9 @@
 #![feature(rustc_attrs)]
 #![feature(nonzero)]
 #![feature(int_error_internals)]
+#![feature(optin_builtin_traits)]
+#![feature(generic_associated_types)]
+#![feature(exact_size_is_empty)]
 
 extern crate alloc;
 extern crate std_unicode;
@@ -63,6 +66,7 @@ pub use std_unicode::char;
 pub mod error;
 pub mod io;
 pub mod os;
+pub mod env;
 pub mod traits;
 pub mod sys_common;
 pub mod ffi;
